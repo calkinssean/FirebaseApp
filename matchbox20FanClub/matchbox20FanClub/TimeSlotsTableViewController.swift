@@ -11,6 +11,7 @@ import Firebase
 
 class TimeSlotsTableViewController: UITableViewController {
     
+    //MARK: - Properties
     var formatter = NSDateFormatter()
     var timeInterval: NSTimeInterval = 0
     var currentEvent = Event()
@@ -18,7 +19,7 @@ class TimeSlotsTableViewController: UITableViewController {
     var currentEventRef = Firebase(url: "https://matchbox20fanclub.firebaseio.com/events/")
     var timeSlotRef = Firebase(url: "https://matchbox20fanclub.firebaseio.com/timeslot/")
     
-    
+    //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         observeTimeSlots()
@@ -27,18 +28,12 @@ class TimeSlotsTableViewController: UITableViewController {
         timeInterval = currentEvent.startDate.timeIntervalSince1970
         currentEventRef = Firebase(url: "https://matchbox20fanclub.firebaseio.com/events/\(currentEvent.key)")
         
+        print(self.currentEvent.name)
         formatter.dateFormat = "MMM/dd/yyyy hh:mm"
         
         self.seedTimeSlots()
         
         
-    }
-    
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Table view delegate
@@ -47,6 +42,7 @@ class TimeSlotsTableViewController: UITableViewController {
         
         let timeSlot = arrayOfTimeSlots[indexPath.row]
         
+        //Toggles the bool on time slot on click
         timeSlot.ref?.updateChildValues([
              "taken": !timeSlot.taken
             ])
@@ -78,12 +74,16 @@ class TimeSlotsTableViewController: UITableViewController {
         return cell
     }
     
+    //MARK: - Seed time slots
     func seedTimeSlots() {
         
+        //Check if the current event has seeded time slots
         if self.currentEvent.hasSeededTimeSlots == false {
             
+            //If the start date of event is before the end date
             if timeInterval < currentEvent.endDate.timeIntervalSince1970 {
                 
+                //Creates and saves new time slots for every 15 minutes of event duration
                 let time = NSDate(timeIntervalSince1970: timeInterval)
                 let date = formatter.stringFromDate(time)
                 print("This is the date: \(date)")
@@ -95,12 +95,14 @@ class TimeSlotsTableViewController: UITableViewController {
                 seedTimeSlots()
                 
             } else {
-                
+                //Changes bool so that events time slots are only seeded once
                 currentEventRef.updateChildValues(["hasSeededTimeSlots": true])
             }
         }
         
     }
+    
+    //MARK: - Time slot observer
     func observeTimeSlots() {
         
         // Add observer for Events
@@ -121,8 +123,11 @@ class TimeSlotsTableViewController: UITableViewController {
                         
                         let slot = TimeSlot(key: key, dict: dict)
                         
+                        
+                        //Pull all time slots with the same key as the current event
                         if slot.eventKey == self.currentEvent.key {
                             
+                            //Sets slot.ref to the slot url for accessing later
                             slot.ref = Firebase(url: "https://matchbox20fanclub.firebaseio.com/timeslot/\(key)")
                             
                             self.arrayOfTimeSlots.append(slot)

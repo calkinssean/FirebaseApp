@@ -16,7 +16,6 @@
 		144050E81CA8C2A700906A3E /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144050E71CA8C2A700906A3E /* CustomTableViewCell.swift */; };
 		14672D641CA9125800CE64C3 /* SlotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14672D631CA9125800CE64C3 /* SlotTableViewCell.swift */; };
 		14F403851CA4955800B6C579 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F403841CA4955800B6C579 /* AppDelegate.swift */; };
-		14F403871CA4955800B6C579 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F403861CA4955800B6C579 /* ViewController.swift */; };
 		14F4038A1CA4955800B6C579 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14F403881CA4955800B6C579 /* Main.storyboard */; };
 		14F4038C1CA4955800B6C579 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14F4038B1CA4955800B6C579 /* Assets.xcassets */; };
 		14F4038F1CA4955800B6C579 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14F4038D1CA4955800B6C579 /* LaunchScreen.storyboard */; };
@@ -39,7 +38,6 @@
 		14672D631CA9125800CE64C3 /* SlotTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotTableViewCell.swift; sourceTree = "<group>"; };
 		14F403811CA4955800B6C579 /* matchbox20FanClub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = matchbox20FanClub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14F403841CA4955800B6C579 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		14F403861CA4955800B6C579 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		14F403891CA4955800B6C579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		14F4038B1CA4955800B6C579 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		14F4038E1CA4955800B6C579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 		14F403831CA4955800B6C579 /* matchbox20FanClub */ = {
 			isa = PBXGroup;
 			children = (
-				14F403861CA4955800B6C579 /* ViewController.swift */,
 				1423C3951CA5FA77004C7A51 /* Models */,
 				144050E91CA8C2AC00906A3E /* Views */,
 				1423C3941CA5FA5B004C7A51 /* View Controllers */,
@@ -290,7 +287,6 @@
 				144050E81CA8C2A700906A3E /* CustomTableViewCell.swift in Sources */,
 				14F403991CA4980C00B6C579 /* Event.swift in Sources */,
 				1423C3891CA5EB26004C7A51 /* EventsTableViewController.swift in Sources */,
-				14F403871CA4955800B6C579 /* ViewController.swift in Sources */,
 				14F4039D1CA4983E00B6C579 /* TimeSlot.swift in Sources */,
 				14F403851CA4955800B6C579 /* AppDelegate.swift in Sources */,
 				1423C38D1CA5EC8A004C7A51 /* CalendarViewController.swift in Sources */,

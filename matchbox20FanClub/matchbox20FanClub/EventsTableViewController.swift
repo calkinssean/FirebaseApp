@@ -13,6 +13,8 @@ class EventsTableViewController: UITableViewController {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    
+    //MARK: - Properties
     let ref = Firebase(url: "https://matchbox20fanclub.firebaseio.com/events")
     
     var authId = ""
@@ -23,25 +25,25 @@ class EventsTableViewController: UITableViewController {
     
     var formatter = NSDateFormatter()
     
+    //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Events"
         observeEvents()
-        formatter.dateFormat = "MMM/dd/yyyy hh:mm"
+        formatter.dateFormat = "MM/dd/yyyy hh:mm"
         
         if revealViewController() != nil {
-            //            revealViewController().rearViewRevealWidth = 62
+            
             menuButton.target = revealViewController()
-            menuButton.action = "revealToggle:"
             
-            
-            
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+        
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            
             
         }
     }
     
+    //MARK: - Create a new event button
     @IBAction func addTapped(sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Create Event",
             message: "Create Event",
@@ -89,11 +91,11 @@ class EventsTableViewController: UITableViewController {
         
         alert.addTextFieldWithConfigurationHandler {
             (startDateField) -> Void in
-            startDateField.placeholder = "Start Date: Dec/25/2016 08:00"
+            startDateField.placeholder = "Start Date: 12/25/2016 08:00"
         }
         alert.addTextFieldWithConfigurationHandler {
             (endDateField) -> Void in
-            endDateField.placeholder = "End Date: Dec/25/2016 11:00"
+            endDateField.placeholder = "End Date: 12/25/2016 11:00"
         }
         
         alert.addAction(saveAction)
@@ -109,12 +111,12 @@ class EventsTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+       
         return arrayOfEvents.count
     }
     
@@ -130,6 +132,7 @@ class EventsTableViewController: UITableViewController {
         
     }
     
+    //setting up the table view cell
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let e = arrayOfEvents[indexPath.row]
         if let cell = tableView.dequeueReusableCellWithIdentifier("EventCell", forIndexPath: indexPath) as? CustomTableViewCell {
@@ -165,7 +168,10 @@ class EventsTableViewController: UITableViewController {
                         let key = snap.key
                         print(key)
                         let event = Event(key: key, dict: dict)
+                        
+                        //Sets event.ref to event url for accessing later
                         event.ref = Firebase(url: "https://matchbox20fanclub.firebaseio.com/events/\(key)")
+                        
                         // Add the event to our eventsArray
                         self.arrayOfEvents.insert(event, atIndex: 0)
                         print(self.arrayOfEvents.count)
@@ -185,15 +191,6 @@ class EventsTableViewController: UITableViewController {
         }
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the specified item to be editable.
-    return true
-    }
-    */
-    
-    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
@@ -201,35 +198,7 @@ class EventsTableViewController: UITableViewController {
             let event = arrayOfEvents[indexPath.row]
             event.ref?.removeValue()
             
-        } else if editingStyle == .Insert {
-            
         }
     }
-    
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
-    }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the item to be re-orderable.
-    return true
-    }
-    */
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 }

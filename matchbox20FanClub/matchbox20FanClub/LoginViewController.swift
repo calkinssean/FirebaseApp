@@ -25,6 +25,8 @@ class LoginViewController: UIViewController {
     // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Observing authorization data, if user didn't log out during last use when app starts, it instantly logs in
         ref.observeAuthEventWithBlock { (authData) -> Void in
             if authData != nil {
                 print(authData)
@@ -52,7 +54,7 @@ class LoginViewController: UIViewController {
         
     }
     
-    // MARK: Actions
+    //MARK: - Actions
     @IBAction func loginDidTouch(sender: AnyObject) {
         
         ref.authUser(textFieldLoginEmail.text, password: textFieldLoginPassword.text, withCompletionBlock: { (error, auth) -> Void in
@@ -60,7 +62,7 @@ class LoginViewController: UIViewController {
         })
         
     }
-    
+    //MARK: - Sign up button
     @IBAction func signUpDidTouch(sender: AnyObject) {
         let alert = UIAlertController(title: "Register",
             message: "Register",
@@ -72,6 +74,7 @@ class LoginViewController: UIViewController {
                 let emailField = alert.textFields![0]
                 let passwordField = alert.textFields![1]
                 
+                //Creates user on firebase with email, and password
                 self.ref.createUser(emailField.text, password: passwordField.text) { (error: NSError!) in
                     
                     if error == nil {

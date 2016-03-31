@@ -11,20 +11,39 @@ import EventKit
 
 class CalendarViewController: UIViewController {
     
-    @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    //MARK: - Properties
     let eventStore = EKEventStore()
     
+    var hasAccessToEventStore: Bool?
+    
+    var arrayOfEvents = [Event]()
+    
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
+    //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if revealViewController() != nil {
-            //            revealViewController().rearViewRevealWidth = 62
+            
             menuButton.target = revealViewController()
-            menuButton.action = "revealToggle:"
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             
+            
+        }
+    }
+    
+    
+    //Checking for access to event store
+    func checkForAuth() {
+        if (EKEventStore.authorizationStatusForEntityType(.Event) != EKAuthorizationStatus.Authorized) {
+            eventStore.requestAccessToEntityType(.Event, completion: {
+                granted, error in
+            })
+        } else {
             
         }
     }
